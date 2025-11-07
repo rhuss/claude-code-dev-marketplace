@@ -303,19 +303,63 @@ h2. Estimated Effort
 [Single number in days]
 ```
 
-2. Use the Python helper script to create ticket:
-```python
+2. Create ticket using jira_helper.py module:
+
+**IMPORTANT**: Use the jira_helper.py module from the plugin directory. This module handles:
+- Reading JIRA config from ~/.config/.jira/.config.yml
+- Reading API token from ~/.zsh-custom/globals.zsh
+- Creating tickets via jira-cli
+- Updating ticket descriptions with proper JIRA wiki markup
+- Linking tickets to epics
+
+Use Bash tool to run Python script:
+```bash
+cd ~/Development/ai/claude-code-dev-marketplace/threat-model-assessment && python3 -c "
 import sys
-sys.path.append('/Users/rhuss/Development/ai/claude-code-dev-marketplace/threat-model-assessment')
+sys.path.append('.')
 from jira_helper import create_jira_ticket
 
+# JIRA description MUST use wiki markup (h2., h3., *, {{code}})
+description = '''h2. Background
+[Brief context]
+
+h2. Current State
+* (/) [What's implemented]
+* (x) [What's missing]
+
+h2. Tasks
+* Task 1
+* Task 2
+
+h2. Out of Scope
+* [Customer responsibilities]
+
+h2. Estimated Effort
+[X days]'''
+
 ticket_key = create_jira_ticket(
-    summary=f"[Requirement ID]: [Brief Title]",
-    description=jira_description,
-    epic=assessment_data["jira_config"]["epic"],
-    component=assessment_data["jira_config"]["component"],
-    priority=assessment_data["jira_config"]["priority"]
+    summary='[Brief Title] ([Requirement ID])',
+    description=description,
+    epic='[epic_key]',
+    component='[component_name]',
+    priority='[priority]'
 )
+
+if ticket_key:
+    print(f'✓ Created: {ticket_key}')
+else:
+    print('✗ Failed')
+    sys.exit(1)
+"
+```
+
+**Common Issues**:
+- If description formatting is wrong (shows Markdown), use update_jira_ticket() to fix:
+```bash
+cd ~/Development/ai/claude-code-dev-marketplace/threat-model-assessment && python3 -c "
+from jira_helper import update_jira_ticket
+update_jira_ticket(ticket_key='[KEY]', description='[wiki_markup]')
+"
 ```
 
 3. Store ticket key in assessment data
