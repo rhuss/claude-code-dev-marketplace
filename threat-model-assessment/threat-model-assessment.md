@@ -149,7 +149,48 @@ If user provides requirement:
 If user says "done":
 - Skip to Phase 3: Summary Generation
 
-#### 5.2 Extract Relevant Parts
+#### 5.2 Check Applicability (NEW)
+
+**IMPORTANT**: Before spending time on detailed analysis, determine if the countermeasurement is actually applicable to the product.
+
+Perform quick applicability check:
+- Read the countermeasurement weakness description
+- Identify the underlying technology or pattern it addresses (e.g., "session-based authentication", "SQL databases", "file uploads")
+- Search codebase for evidence of that technology/pattern (use Grep with relevant keywords)
+- Analyze findings to determine if the product uses the vulnerable technology
+
+Make applicability decision:
+- **Applicable**: Product uses the technology/pattern, proceed with full assessment
+- **Not Applicable**: Product doesn't use the technology/pattern, document why and skip to next countermeasurement
+
+If **Not Applicable**:
+1. Create assessment with "Not Applicable" status
+2. Write 1-2 paragraphs explaining:
+   - What technology/pattern the countermeasurement addresses
+   - Why the product doesn't use that technology/pattern
+   - What alternative approach the product uses (if any)
+   - Code references supporting the conclusion
+3. Store assessment in assessment_data
+4. No JIRA ticket needed
+5. Ask for next countermeasurement (skip to step 5.8)
+
+**Example Not Applicable Assessment**:
+```
+**COUNTERMEASUREMENT: T20 - Generate unique session IDs**
+
+**Status**: Not Applicable
+
+**Rationale**:
+This countermeasurement addresses session fixation attacks in session-based authentication systems. Llama Stack does not use server-side session management and therefore is not vulnerable to session fixation.
+
+LLS implements stateless authentication using Bearer tokens (JWT, OAuth2/OIDC). Analysis of auth.py:89-150 confirms no session creation, storage, or management. Each request is independently authenticated via token validation. The only "session" references are for AWS Boto3 sessions (external service auth) and test fixtures.
+
+Conclusion: Session fixation countermeasures are not applicable to LLS's stateless token-based architecture.
+```
+
+#### 5.3 Extract Relevant Parts (if Applicable)
+
+**Only proceed if countermeasurement is Applicable**
 
 Analyze the requirement and determine:
 - Which parts are relevant to the deployment model (self-hosted vs SaaS)
@@ -162,7 +203,7 @@ Ask user: "Which of these aspects should I focus the assessment on?"
 - Provide checkboxes for each identified area
 - Allow user to select multiple
 
-#### 5.3 Conduct Codebase Analysis
+#### 5.4 Conduct Codebase Analysis
 
 For each selected focus area:
 - Use Grep and Read tools to search for relevant code
@@ -181,7 +222,7 @@ Add to TodoWrite:
 
 Mark each as in_progress, then completed as you work through them.
 
-#### 5.4 Create Assessment Documentation
+#### 5.5 Create Assessment Documentation
 
 For each focus area, generate assessment using this format:
 
@@ -213,7 +254,7 @@ For each focus area, generate assessment using this format:
 
 Store this assessment in assessment_data["countermeasurements"].
 
-#### 5.5 Determine Completion Status
+#### 5.6 Determine Completion Status
 
 Analyze the overall status:
 - If all focus areas are "Complete": countermeasurement is complete
@@ -224,7 +265,7 @@ If action items exist:
 - Ask user: "Should I create a JIRA ticket for these action items?"
 - If yes (and JIRA is enabled), proceed to create ticket
 
-#### 5.6 Create JIRA Ticket (if requested)
+#### 5.7 Create JIRA Ticket (if requested)
 
 If user wants JIRA ticket:
 
@@ -266,7 +307,7 @@ ticket_key = create_jira_ticket(
 
 4. Update TodoWrite to mark JIRA creation as complete
 
-#### 5.7 Ask for Next Countermeasurement
+#### 5.8 Ask for Next Countermeasurement
 
 Ask user: "Assessment complete for [Requirement ID]. Ready for the next countermeasurement? (paste requirement or say 'done')"
 
