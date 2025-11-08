@@ -121,7 +121,7 @@ python3 ~/.claude/plugins/threat-model-assessment/jira_helper.py
 
 ### 4. Restart Claude Code
 
-The plugin will be available as a skill.
+The plugin will be available via the `/threat-model-assessment` slash command.
 
 ## Usage
 
