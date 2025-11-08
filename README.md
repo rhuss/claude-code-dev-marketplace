@@ -6,23 +6,20 @@ This repository contains custom Claude Code plugins for security, development, a
 
 ### 🔒 threat-model-assessment
 
-Automate security assessments with AI-powered code analysis against any threat modeling framework or compliance standard.
+Turn security requirements into actionable code assessments. Provide a threat description and your code repositories, and the plugin analyzes your implementation to identify what's in place and what's missing.
 
-**Features:**
-- Framework-agnostic: Works with OWASP ASVS, CIS Controls, NIST, GDPR, internal policies, or any security framework
-- AI-powered codebase analysis with file-level precision
-- Iterative assessment of multiple requirements in a single session
-- Automated gap analysis and remediation recommendations
-- Optional JIRA integration for ticket creation
-- Comprehensive markdown assessment reports
+**How it works:**
+1. Paste a security requirement from your threat model
+2. Specify your code repositories (local or Git URLs)
+3. AI analyzes the code to assess current security controls
+4. Receive detailed findings with file references and gap analysis
+5. Optionally auto-generate JIRA tickets for remediation work
 
-**Use Cases:**
-- OWASP ASVS security assessments
-- CIS Controls compliance verification
-- NIST framework implementation reviews
-- GDPR Article 30 data processing registers
-- Internal security policy audits
-- Security architecture reviews
+**Perfect for:**
+- Architects validating security designs against actual implementation
+- Developers ensuring security requirements are properly coded
+- Security teams conducting compliance assessments
+- Anyone who needs to verify code matches security requirements
 
 [→ View Plugin Documentation](./threat-model-assessment/README.md)
 
