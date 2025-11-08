@@ -374,7 +374,7 @@ h2. Estimated Effort
 
 First, ensure JIRA_API_TOKEN is set:
 ```bash
-export JIRA_API_TOKEN="MTU4NDY3NzM1MDY0OtOd3YQXE6/FuxTwo6x6kMv2b84L"
+export JIRA_API_TOKEN="your-jira-api-token-here"
 ```
 
 **IMPORTANT**: Always use a temporary file for JSON data to avoid shell escaping issues:
