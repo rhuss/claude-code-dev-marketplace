@@ -58,12 +58,12 @@ Additional Context: https://gdpr-info.eu/art-30-gdpr/
 
 ## Features
 
-✅ **Multi-Repository Support**: Analyze local directories and remote Git repositories
-✅ **Iterative Assessment**: Process multiple countermeasurements in one session
-✅ **JIRA Integration**: Auto-create tickets with proper formatting
-✅ **GDPR Compliance**: Built-in templates for Article 30 data processing registers
-✅ **Structured Documentation**: Generate markdown summaries with all findings
-✅ **Progress Tracking**: TodoWrite integration for visibility
+- ✅ **Multi-Repository Support**: Analyze local directories and remote Git repositories
+- ✅ **Iterative Assessment**: Process multiple countermeasurements in one session
+- ✅ **JIRA Integration**: Auto-create tickets with proper formatting
+- ✅ **GDPR Compliance**: Built-in templates for Article 30 data processing registers
+- ✅ **Structured Documentation**: Generate markdown summaries with all findings
+- ✅ **Progress Tracking**: TodoWrite integration for visibility
 
 ## Prerequisites
 
