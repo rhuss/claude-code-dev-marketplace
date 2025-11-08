@@ -1,6 +1,6 @@
 # Threat Model Assessment Plugin
 
-A Claude Code plugin for conducting systematic security threat model assessments following industry best practices (SDElements, GDPR compliance, OWASP, etc.).
+A Claude Code plugin for conducting systematic security threat model assessments following industry best practices and compliance frameworks (GDPR, OWASP, CIS Controls, NIST, etc.).
 
 ## Overview
 
@@ -10,6 +10,51 @@ This plugin automates the process of:
 3. Identifying security gaps
 4. Creating JIRA tickets for remediation work
 5. Generating comprehensive assessment reports
+
+## Input Requirements
+
+The plugin is designed to work with any threat modeling framework or security compliance standard. Here's what you need to provide:
+
+### Project Context (Initial Setup)
+- **Project name**: Name of the product/system being assessed
+- **Deployment model**: Self-hosted, SaaS, or hybrid deployment
+- **Code repositories**: Local directory paths or Git repository URLs (comma/newline separated)
+- **JIRA configuration** (optional): Epic key, component name, default priority
+
+### Per Countermeasurement/Requirement
+For each security requirement you want to assess:
+
+1. **Requirement text** (required):
+   - The full text of the countermeasurement or security requirement
+   - Can be from any source: OWASP ASVS, CIS Controls, internal security policies, compliance frameworks, etc.
+   - Should describe what security control needs to be implemented
+
+2. **Reference URL** (optional but recommended):
+   - Link back to the requirement in your assessment tool or documentation
+   - Enables traceability and creates backlinks in JIRA tickets
+   - Examples: SDElements URL, OWASP ASVS section link, internal wiki page
+
+3. **Additional context links** (optional):
+   - CWE (Common Weakness Enumeration) URLs: `http://cwe.mitre.org/data/definitions/XXX`
+   - OWASP documentation references
+   - Security best practices guides
+   - RFC specifications
+   - The plugin will automatically fetch and analyze these for threat context
+
+### Example Input Format
+
+```
+Requirement: T755 - Maintain a Data Processing Register
+
+Reference URL: https://your-assessment-tool.com/requirements/T755
+
+Description: Under GDPR Article 30, organizations must maintain a record of processing
+activities containing: (a) the purposes of processing, (b) categories of data subjects,
+(c) categories of personal data, (d) retention periods, (e) technical and organizational
+security measures.
+
+Additional Context: https://gdpr-info.eu/art-30-gdpr/
+```
 
 ## Features
 
@@ -33,25 +78,20 @@ This plugin automates the process of:
 
 ## Installation
 
-### 1. Clone the Marketplace Repository
-
 ```bash
+# Clone the marketplace
 cd ~/Development
 git clone https://github.com/rhuss/claude-code-dev-marketplace.git
-```
 
-### 2. Install the Plugin
-
-```bash
-# Create Claude Code plugins directory
+# Install the plugin
 mkdir -p ~/.claude/plugins
-
-# Symlink the plugin
 ln -s ~/Development/claude-code-dev-marketplace/threat-model-assessment \
       ~/.claude/plugins/threat-model-assessment
 ```
 
-### 3. Configure JIRA (Optional)
+The plugin will be available as `/threat-model-assessment` after restarting Claude Code.
+
+## Configure JIRA (Optional)
 
 If you want automatic JIRA ticket creation:
 
@@ -90,7 +130,8 @@ The plugin will be available as a skill.
    - JIRA integration preferences
 
 3. **Provide countermeasurement requirements**:
-   - Paste requirement text from SDElements, compliance docs, etc.
+   - Paste requirement text from your threat modeling framework (e.g., SDElements, OWASP ASVS, CIS Controls, compliance docs)
+   - Optionally provide reference URL for traceability
    - Claude analyzes and identifies relevant aspects
    - You confirm which aspects to assess
 
@@ -106,7 +147,7 @@ The plugin will be available as a skill.
 ### Example Session
 
 ```
-User: "I want to assess Llama Stack for GDPR compliance"
+User: "I want to conduct a threat model assessment for Llama Stack"
 
 Claude: [Invokes threat-model-assessment plugin]
 
@@ -411,7 +452,10 @@ Roland Huß (@rhuss)
 
 ## Resources
 
-- [SDElements Documentation](https://www.securitycompass.com/sdelements/)
-- [GDPR Article 30](https://gdpr-info.eu/art-30-gdpr/)
 - [OWASP Threat Modeling](https://owasp.org/www-community/Threat_Modeling)
+- [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/)
+- [CIS Controls](https://www.cisecurity.org/controls)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
+- [GDPR Article 30](https://gdpr-info.eu/art-30-gdpr/)
+- [SDElements](https://www.securitycompass.com/sdelements/) (example assessment tool)
 - [Claude Code Plugin Guide](https://docs.claude.com/claude-code/plugins)

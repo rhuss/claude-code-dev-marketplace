@@ -5,7 +5,7 @@ description: Conduct security threat model assessments for software projects by 
 
 # Threat Model Assessment Plugin
 
-This plugin helps conduct systematic security threat model assessments following industry best practices (SDElements, GDPR compliance, etc.).
+This plugin helps conduct systematic security threat model assessments following industry best practices and compliance frameworks (GDPR, OWASP, CIS, NIST, etc.).
 
 ## How to Use This Plugin
 
@@ -34,7 +34,7 @@ This plugin follows a structured assessment workflow:
 Ensure you have:
 - Access to the codebase(s) being assessed
 - (Optional) JIRA credentials configured if creating tickets
-- (Optional) SDElements or other threat model requirements
+- (Optional) Threat model requirements from your assessment framework (e.g., SDElements, OWASP ASVS, CIS Controls)
 
 ## Plugin Execution
 
@@ -182,7 +182,7 @@ Make applicability decision:
 
 If **Not Applicable**:
 1. Create assessment with "Not Applicable" status
-2. Write concise rationale (max 1024 characters for SDElements) explaining:
+2. Write concise rationale (keep under 1024 characters for compatibility with most assessment tools) explaining:
    - What technology/pattern the countermeasurement addresses
    - Why the product doesn't use that technology/pattern
    - What alternative approach the product uses (if any)
@@ -193,16 +193,16 @@ If **Not Applicable**:
 6. Ask for next countermeasurement (skip to step 5.8)
 
 **Guidelines for Not Applicable Rationale**:
-- Maximum 1024 characters (SDElements limit)
+- Maximum 1024 characters (common limit for assessment tools)
 - Be concise but complete
 - Include specific code references (file:line) in analysis paragraphs
 - Use numbered lists for clarity
-- **Conclusion section**: One line per paragraph, NO code references (this gets pasted into SDElements)
+- **Conclusion section**: One line per paragraph, NO code references (suitable for copying to assessment tools)
 
 **Structure**:
 1. Opening paragraph: What the countermeasure addresses
 2. Analysis paragraph(s): Why it doesn't apply, with code references
-3. **Conclusion**: Clean summary suitable for SDElements (no code refs, one line per paragraph)
+3. **Conclusion**: Clean summary suitable for assessment tool (no code refs, one line per paragraph)
 
 **Example Not Applicable Assessment**:
 ```
@@ -214,7 +214,7 @@ This countermeasure addresses session fixation in session-based authentication s
 
 Llama Stack (LLS) does not use server-side session management. Analysis of auth.py:89-150 confirms: (1) No session creation, storage, or management; (2) Each request independently authenticated via token validation; (3) No session IDs generated or stored in cookies; (4) User attributes extracted per-request and discarded after. LLS implements stateless authentication using Bearer tokens (JWT, OAuth2/OIDC, GitHub tokens, Kubernetes service account tokens).
 
-**Conclusion (for SDElements):**
+**Conclusion (for assessment tool):**
 LLS uses stateless token-based authentication, not session-based authentication.
 Session fixation countermeasures are not applicable to this architecture.
 
@@ -240,7 +240,7 @@ comment = '''h3. {REQUIREMENT_ID}: {REQUIREMENT_TITLE} - Not Applicable
 
 {Bulleted analysis with code references}
 
-*Conclusion:* {One-liner summary suitable for SDElements}'''
+*Conclusion:* {One-liner summary suitable for assessment tool}'''
 
 if add_comment_to_issue('{epic_key}', comment):
     print('✓ Successfully added {REQUIREMENT_ID} Not Applicable comment to epic')
@@ -256,7 +256,7 @@ else:
 - Include reference URL for traceability
 - Keep rationale concise and focused
 - Use bullet points for analysis with code references
-- End with clean conclusion suitable for pasting into SDElements
+- End with clean conclusion suitable for pasting into assessment tool
 
 #### 5.3 Extract Relevant Parts (if Applicable)
 
@@ -361,7 +361,7 @@ h2. Estimated Effort
 [Single number in days]
 ```
 
-**Note**: If user provided reference URL, include it at the top for traceability back to assessment tool.
+**Note**: If user provided reference URL, include it at the top for traceability back to the requirement source.
 
 2. Create ticket using create_jira_issue.py script:
 
@@ -543,7 +543,7 @@ Structure:
 
 ## Appendix: Assessment Methodology
 
-**Framework**: [SDElements, OWASP, NIST, etc.]
+**Framework**: [Threat modeling framework used, e.g., STRIDE, PASTA, OWASP ASVS, CIS Controls, etc.]
 **Focus**: [GDPR compliance, Data protection, etc.]
 **Code Analysis Tools**: Claude Code, Grep, AST analysis
 **Documentation Standards**: [Standards followed]
@@ -577,7 +577,7 @@ h1. Threat Model Assessment Summary
 
 h2. Executive Summary
 
-Conducted threat model assessment for [Project] using SDElements countermeasurement requirements. Assessed [N] countermeasurements:
+Conducted threat model assessment for [Project] using [Framework] security requirements. Assessed [N] countermeasurements:
 
 * *Not Applicable:* [N] countermeasurements ([list])
 * *Gaps Identified:* [N] countermeasurements requiring remediation
