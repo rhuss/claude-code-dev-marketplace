@@ -1,4 +1,4 @@
-# Claude Code Personal Plugin Marketplace
+# rhuss' Personal Plugin Marketplace
 
 This repository contains custom Claude Code plugins for security, development, and automation workflows.
 
