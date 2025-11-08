@@ -145,6 +145,10 @@ Ask user: "Please paste the next countermeasurement requirement (or say 'done' t
 If user provides requirement:
 - Parse the requirement title/ID (e.g., "T755: Maintain a Data Processing Register")
 - Extract the full requirement text
+- **Ask for reference URL**: "Please provide the reference URL for this countermeasurement (for traceability)"
+  - Store URL in assessment data for linking back to source
+  - This will be added to JIRA tickets as a backlink
+  - Optional: If user doesn't have URL, proceed without it
 
 If user says "done":
 - Skip to Phase 3: Summary Generation
@@ -286,6 +290,9 @@ If user wants JIRA ticket:
 
 1. Generate concise JIRA description in wiki markup:
 ```
+h2. Reference
+[Include reference URL if provided, e.g., "Source: https://sdelements.com/bunits/..."]
+
 h2. Background
 [Brief context about the gap]
 
@@ -302,6 +309,8 @@ h2. Out of Scope
 h2. Estimated Effort
 [Single number in days]
 ```
+
+**Note**: If user provided reference URL, include it at the top for traceability back to assessment tool.
 
 2. Create ticket using jira_helper.py module:
 
@@ -320,7 +329,11 @@ sys.path.append('.')
 from jira_helper import create_jira_ticket
 
 # JIRA description MUST use wiki markup (h2., h3., *, {{code}})
-description = '''h2. Background
+# Include reference URL if provided by user
+description = '''h2. Reference
+Source: [reference_url]
+
+h2. Background
 [Brief context]
 
 h2. Current State
