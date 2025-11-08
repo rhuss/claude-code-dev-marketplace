@@ -311,6 +311,72 @@ def update_jira_ticket(
         return False
 
 
+def add_comment_to_issue(
+    ticket_key: str,
+    comment: str
+) -> bool:
+    """
+    Add a comment to an existing JIRA ticket using REST API.
+
+    Args:
+        ticket_key: Ticket key (e.g., "RHAIENG-1247")
+        comment: Comment text in JIRA wiki markup format
+
+    Returns:
+        True if successful, False otherwise
+    """
+    try:
+        config = read_jira_config()
+        token = get_jira_token()
+
+        if not token:
+            raise ValueError("JIRA API token not found")
+
+        # Build comment payload
+        payload = {
+            "body": comment
+        }
+
+        # Use curl to add comment via REST API
+        cmd = [
+            'curl', '-X', 'POST',
+            '-H', f'Authorization: Bearer {token}',
+            '-H', 'Content-Type: application/json',
+            '--data', json.dumps(payload),
+            f'{config["server"]}/rest/api/2/issue/{ticket_key}/comment'
+        ]
+
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+
+        if result.returncode != 0:
+            print(f"❌ Failed to add comment to JIRA ticket: {result.stderr}", file=sys.stderr)
+            return False
+
+        # Check if response contains error
+        try:
+            response = json.loads(result.stdout)
+            if 'errorMessages' in response or 'errors' in response:
+                print(f"❌ JIRA API error: {response}", file=sys.stderr)
+                return False
+        except json.JSONDecodeError:
+            # Non-JSON response might indicate error
+            if result.stdout and 'error' in result.stdout.lower():
+                print(f"❌ JIRA API error: {result.stdout}", file=sys.stderr)
+                return False
+
+        print(f"✓ Added comment to JIRA ticket: {ticket_key}")
+        return True
+
+    except Exception as e:
+        print(f"❌ Error adding comment to JIRA ticket: {e}", file=sys.stderr)
+        return False
+
+
 def save_ticket_to_file(
     summary: str,
     description: str,

@@ -188,8 +188,9 @@ If **Not Applicable**:
    - What alternative approach the product uses (if any)
    - Key code references supporting the conclusion
 3. Store assessment in assessment_data
-4. No JIRA ticket needed
-5. Ask for next countermeasurement (skip to step 5.8)
+4. **Add comment to epic** documenting the "Not Applicable" decision (see instructions below)
+5. No JIRA ticket needed
+6. Ask for next countermeasurement (skip to step 5.8)
 
 **Guidelines for Not Applicable Rationale**:
 - Maximum 1024 characters (SDElements limit)
@@ -219,6 +220,43 @@ Session fixation countermeasures are not applicable to this architecture.
 
 [Character count: ~672]
 ```
+
+**Adding "Not Applicable" Comment to Epic**:
+
+When a countermeasurement is determined to be "Not Applicable", add a comment to the epic documenting the decision using the jira_helper.py script:
+
+```python
+export JIRA_API_TOKEN="..." && cd ~/Development/ai/claude-code-dev-marketplace/threat-model-assessment && python3 -c "
+import sys
+from jira_helper import add_comment_to_issue
+
+comment = '''h3. {REQUIREMENT_ID}: {REQUIREMENT_TITLE} - Not Applicable
+
+*Status:* Not Applicable
+*Reference:* {reference_url}
+
+*Rationale:*
+{Brief explanation paragraph}
+
+{Bulleted analysis with code references}
+
+*Conclusion:* {One-liner summary suitable for SDElements}'''
+
+if add_comment_to_issue('{epic_key}', comment):
+    print('✓ Successfully added {REQUIREMENT_ID} Not Applicable comment to epic')
+    sys.exit(0)
+else:
+    print('ERROR: Failed to add comment to epic', file=sys.stderr)
+    sys.exit(1)
+"
+```
+
+**Comment Format Guidelines**:
+- Use `h3.` for the heading with countermeasurement ID and title
+- Include reference URL for traceability
+- Keep rationale concise and focused
+- Use bullet points for analysis with code references
+- End with clean conclusion suitable for pasting into SDElements
 
 #### 5.3 Extract Relevant Parts (if Applicable)
 
