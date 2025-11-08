@@ -230,10 +230,13 @@ The plugin includes two Python scripts for JIRA integration:
 
 Main script for creating JIRA tickets with proper wiki markup formatting.
 
-**Usage**:
+**Usage** (recommended - using temporary file to avoid shell escaping issues):
 ```bash
 export JIRA_API_TOKEN="your-token"
-echo '{"summary": "...", "background": "...", ...}' | python3 create_jira_issue.py
+cat > /tmp/jira_ticket.json <<'EOF'
+{"summary": "...", "background": "...", ...}
+EOF
+cat /tmp/jira_ticket.json | python3 create_jira_issue.py
 ```
 
 **Features**:

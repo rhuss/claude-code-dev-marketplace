@@ -153,6 +153,19 @@ If user provides requirement:
 If user says "done":
 - Skip to Phase 3: Summary Generation
 
+**Read External Links for Context**:
+If the countermeasurement description contains external links (e.g., CWE references, documentation):
+- Use WebFetch to read each external link
+- Extract relevant threat background, attack vectors, and security implications
+- Use this context to inform the applicability check and assessment
+- Note: Focus on understanding the threat, not implementing solutions
+
+Example external links commonly found:
+- CWE (Common Weakness Enumeration) URLs: http://cwe.mitre.org/data/definitions/XXX
+- OWASP documentation
+- Security best practices guides
+- RFC specifications
+
 #### 5.2 Check Applicability (NEW)
 
 **IMPORTANT**: Before spending time on detailed analysis, determine if the countermeasurement is actually applicable to the product.
@@ -326,9 +339,11 @@ First, ensure JIRA_API_TOKEN is set:
 export JIRA_API_TOKEN="MTU4NDY3NzM1MDY0OtOd3YQXE6/FuxTwo6x6kMv2b84L"
 ```
 
-Then create ticket by piping JSON data to the script:
+**IMPORTANT**: Always use a temporary file for JSON data to avoid shell escaping issues:
+
 ```bash
-cd ~/Development/ai/claude-code-dev-marketplace/threat-model-assessment && echo '{
+cd ~/Development/ai/claude-code-dev-marketplace/threat-model-assessment && cat > /tmp/jira_ticket.json <<'JSONEOF'
+{
   "summary": "[Brief Title] ([Requirement ID])",
   "reference_url": "[reference_url_if_provided]",
   "background": "[Brief context about the gap]",
@@ -365,8 +380,16 @@ cd ~/Development/ai/claude-code-dev-marketplace/threat-model-assessment && echo 
   "epic": "[epic_key]",
   "component": "[component_name]",
   "priority": "[Critical|High|Medium|Low]"
-}' | python3 create_jira_issue.py
+}
+JSONEOF
+cat /tmp/jira_ticket.json | python3 create_jira_issue.py
 ```
+
+**Why use a temporary file?**
+- Avoids shell escaping issues with special characters (quotes, parentheses, backslashes)
+- Ensures JSON is passed exactly as written without interpretation
+- More reliable for complex descriptions with varied punctuation
+- Easier to debug if ticket creation fails
 
 **If JIRA_API_TOKEN is not set**, the script will print instructions for creating a Personal Access Token:
 1. Go to https://issues.redhat.com/secure/ViewProfile.jspa
