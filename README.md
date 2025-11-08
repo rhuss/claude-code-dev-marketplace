@@ -46,49 +46,6 @@ Invoke the plugin:
 /threat-model-assessment
 ```
 
-## Plugin Development
-
-### Creating a New Plugin
-
-1. Create a new directory under the repository root:
-   ```bash
-   mkdir my-new-plugin
-   ```
-
-2. Create the skill file:
-   ```bash
-   touch my-new-plugin/my-new-plugin.md
-   ```
-
-3. Follow the plugin structure:
-   ```markdown
-   ---
-   name: my-new-plugin
-   description: Brief description of what the plugin does
-   ---
-
-   # Plugin Title
-
-   [Documentation and instructions]
-
-   <INSTRUCTIONS>
-   [Detailed workflow for Claude to follow]
-   </INSTRUCTIONS>
-   ```
-
-4. Add any helper scripts (Python, shell, etc.) in the same directory
-
-5. Create a README.md documenting usage and examples
-
-### Plugin Guidelines
-
-- Use clear, structured instructions for Claude
-- Break complex workflows into phases and steps
-- Use TodoWrite for progress tracking
-- Use AskUserQuestion for user interaction
-- Provide error handling guidance
-- Include examples and use cases
-
 ## Contributing
 
 This is a personal plugin marketplace, but suggestions and improvements are welcome!

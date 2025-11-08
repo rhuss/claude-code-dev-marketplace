@@ -2,10 +2,12 @@
 
 A Claude Code plugin for conducting systematic security threat model assessments following industry best practices and compliance frameworks (GDPR, OWASP, CIS Controls, NIST, etc.).
 
+**The plugin analyzes your existing source code** to assess security controls and identify gaps. When you run the `/threat-model-assessment` command, the plugin will ask you for the locations of your code repositories (local directories or Git URLs) and then systematically examine the code against security requirements.
+
 ## Overview
 
 This plugin automates the process of:
-1. Analyzing codebases against security countermeasurement requirements
+1. Analyzing existing codebases against security countermeasurement requirements
 2. Documenting current implementation status
 3. Identifying security gaps
 4. Creating JIRA tickets for remediation work
@@ -125,29 +127,33 @@ The plugin will be available as a skill.
 
 ### Basic Workflow
 
-1. **Invoke the plugin** in Claude Code:
+1. **Invoke the plugin** using the slash command:
    ```
-   I want to conduct a threat model assessment
+   /threat-model-assessment
    ```
 
-2. **Answer setup questions**:
+2. **Provide source code locations** when prompted:
+   - The plugin will ask for your code repository locations
+   - Provide local directory paths (e.g., `/Users/name/project`) or Git URLs
+   - You can specify multiple repositories (comma or newline separated)
+
+3. **Answer setup questions**:
    - Project name and description
    - Deployment model (self-hosted, SaaS, hybrid)
-   - Code locations (local paths or Git URLs)
-   - JIRA integration preferences
+   - JIRA integration preferences (optional)
 
-3. **Provide countermeasurement requirements**:
+4. **Provide countermeasurement requirements**:
    - Paste requirement text from your threat modeling framework (e.g., SDElements, OWASP ASVS, CIS Controls, compliance docs)
    - Optionally provide reference URL for traceability
    - Claude analyzes and identifies relevant aspects
    - You confirm which aspects to assess
 
-4. **Review findings**:
+5. **Review findings**:
    - Claude analyzes code and documents current state
    - Identifies gaps and recommends actions
    - Optionally creates JIRA tickets
 
-5. **Repeat for additional countermeasurements**:
+6. **Repeat for additional countermeasurements**:
    - Say "done" when finished
    - Receive comprehensive summary document
 
