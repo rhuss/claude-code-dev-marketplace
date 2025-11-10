@@ -1,17 +1,17 @@
 {
-  "name": "rhuss-claude-marketplace",
+  "name": "cc-rhuss-marketplace",
   "owner": {
     "name": "Roland Huß",
     "email": "rhuss@redhat.com"
   },
   "description": "Custom Claude Code plugins for security, development, and automation workflows",
-  "homepage": "https://github.com/rhuss/rhuss-claude-marketplace",
-  "repository": "https://github.com/rhuss/rhuss-claude-marketplace",
+  "homepage": "https://github.com/rhuss/cc-rhuss-marketplace",
+  "repository": "https://github.com/rhuss/cc-rhuss-marketplace",
   "license": "MIT",
   "plugins": [
     {
       "name": "threat-model-assessment",
-      "source": "./threat-model-assessment",
+      "source": "github:rhuss/cc-threat-model-assessment",
       "description": "Conduct systematic security threat model assessments by analyzing code against countermeasurement requirements and generating compliance documentation with optional JIRA integration",
       "version": "1.0.0",
       "author": {
@@ -31,6 +31,29 @@
         "code-analysis"
       ],
       "category": "security"
+    },
+    {
+      "name": "cc-superpowers-sdd",
+      "source": "github:rhuss/cc-superpowers-sdd",
+      "description": "Specification-Driven Development with Process Discipline for Claude Code",
+      "version": "1.0.0",
+      "author": {
+        "name": "Roland Huss",
+        "email": "rhuss@redhat.com"
+      },
+      "keywords": [
+        "claude-code",
+        "plugin",
+        "specification-driven-development",
+        "sdd",
+        "specs",
+        "test-driven-development",
+        "tdd",
+        "process-discipline",
+        "quality-gates",
+        "superpowers"
+      ],
+      "category": "development"
     }
   ]
 }

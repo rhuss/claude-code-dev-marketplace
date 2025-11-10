@@ -21,20 +21,38 @@ Turn security requirements into actionable code assessments. Provide a threat de
 - Security teams conducting compliance assessments
 - Anyone who needs to verify code matches security requirements
 
-[→ View Plugin Documentation](./threat-model-assessment/README.md)
+[→ View Plugin Documentation](https://github.com/rhuss/cc-threat-model-assessment)
+
+### 📋 cc-superpowers-sdd
+
+Specification-Driven Development with Process Discipline for Claude Code. This plugin extends the superpowers framework with skills and workflows for specification-driven development, ensuring code is built according to well-defined specifications.
+
+**How it works:**
+1. Define specifications before writing code
+2. Use built-in skills to guide the development process
+3. Apply process discipline with quality gates
+4. Ensure code matches specifications through structured workflows
+
+**Perfect for:**
+- Teams practicing specification-driven development
+- Projects requiring formal specification documentation
+- Developers who want structured development workflows
+- Organizations implementing quality gates in their development process
+
+[→ View Plugin Documentation](https://github.com/rhuss/cc-superpowers-sdd)
 
 ## Installation
 
 **Step 1:** Add this marketplace to Claude Code:
 
 ```
-/plugin marketplace add rhuss/rhuss-claude-marketplace
+/plugin marketplace add rhuss/cc-rhuss-marketplace
 ```
 
 **Step 2:** Install any plugin from the marketplace:
 
 ```
-/plugin install <plugin-name>@rhuss-claude-marketplace
+/plugin install <plugin-name>@cc-rhuss-marketplace
 ```
 
 **Step 3:** Invoke the plugin using its slash command:
@@ -45,7 +63,7 @@ Turn security requirements into actionable code assessments. Provide a threat de
 
 **Example** (installing threat-model-assessment):
 ```
-/plugin install threat-model-assessment@rhuss-claude-marketplace
+/plugin install threat-model-assessment@cc-rhuss-marketplace
 /threat-model-assessment
 ```
 
