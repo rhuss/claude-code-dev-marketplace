@@ -23,7 +23,7 @@ Turn security requirements into actionable code assessments. Provide a threat de
 
 [→ View Plugin Documentation](https://github.com/rhuss/cc-threat-model-assessment)
 
-### 📋 cc-superpowers-sdd
+### 📋 superpowers-sdd
 
 Specification-Driven Development with Process Discipline for Claude Code. This plugin extends the superpowers framework with skills and workflows for specification-driven development, ensuring code is built according to well-defined specifications.
 
@@ -40,6 +40,27 @@ Specification-Driven Development with Process Discipline for Claude Code. This p
 - Organizations implementing quality gates in their development process
 
 [→ View Plugin Documentation](https://github.com/rhuss/cc-superpowers-sdd)
+
+### 🎯 slidev
+
+Create developer-focused technical presentations using Slidev with enforced evidence-based design guardrails. Complete workflow from brainstorming to LaTeX handouts.
+
+**How it works:**
+1. Initialize presentation with /slidev:init
+2. Interactive brainstorming with web research
+3. Auto-generate structured outline
+4. Create modular slides with enforced quality (≤6 elements, <50 words)
+5. Add multi-platform diagrams (Mermaid, PlantUML, Excalidraw)
+6. Generate presenter notes and LaTeX handouts
+7. Export to PDF/PPTX
+
+**Perfect for:**
+- Conference talks and tech meetups
+- Internal technical demos and architecture reviews
+- Developer training and workshops
+- Open source presentations with Git collaboration
+
+[→ View Plugin Documentation](https://github.com/rhuss/cc-slidev)
 
 ## Installation
 
